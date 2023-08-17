@@ -1,0 +1,8 @@
+@import "./theme.css";
+
+#app {
+    font-family: var(--font);
+    background: var(--bg-1);
+    color: var(--fg-0);
+    height: 100vh;
+}

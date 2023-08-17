@@ -1,0 +1,249 @@
+/* https://www.figma.com/community/file/1252820362698249424 */
+
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+
+:root {
+    --font: "Inter";
+
+    /* Color */
+    --bg-0: #f9f5d7;
+    --bg-1: #f5edca;
+    --bg-2: #f2eac7;
+    --bg-3: #f2e4bc;
+    --bg-4: #efdfb7;
+    --bg-5: #ebdbb2;
+    --bg-dim: #f2eac7;
+    --bg-current-word: #f2eac7;
+    --bg-diff-green: #e4edc7;
+    --bg-diff-green: #e4edc7;
+    --bg-diff-blue: #e0e9d3;
+    --bg-diff-red: #f8e4c9;
+    --bg-visual-yellow: #f9e9bf;
+    --bg-visual-green: #dce5c2;
+    --bg-visual-blue: #d8e1cc;
+    --bg-visual-red: #f0ddc3;
+    --bg-accent-yellow: #a96b2d;
+    --bg-accent-green: #6f8252;
+    --bg-accent-red: #ae5858;
+    --accent-red: #c14a4a;
+    --accent-orange: #c35e0a;
+    --accent-yellow: #b37109;
+    --accent-green: #6c782e;
+    --accent-aqua: #4b7a5d;
+    --accent-blue: #45707a;
+    --accent-purple: #945e80;
+    --fg-0: #644735;
+    --fg-1: #503829;
+    --grey-0: #a79a83;
+    --grey-1: #928374;
+    --grey-2: #7c6f64;
+
+    /* Text */
+    --display: 6rem;
+    --headline-1: 4rem;
+    --headline-2: 3rem;
+    --headline-3: 2.5rem;
+    --headline-4: 2.25rem;
+    --headline-5: 2rem;
+    --headline-6: 1.5rem;
+    --body-lg: 1.25rem;
+    --body-md: 1rem;
+    --body-sm: 0.875rem;
+    --body-xs: 0.75rem;
+    --label-lg: 1.25rem;
+    --label-md: 1rem;
+    --label-sm: 0.875rem;
+    --label-xs: 0.75rem;
+    --overline-lg: 1rem;
+    --overline-md: 0.875rem;
+    --overline-sm: 0.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-0: #1e2021;
+        --bg-1: #282828;
+        --bg-2: #282828;
+        --bg-3: #3c3836;
+        --bg-4: #3c3836;
+        --bg-5: #504944;
+        --bg-dim: #141617;
+        --bg-current-word: #32302f;
+        --bg-diff-green: #32361a;
+        --bg-diff-blue: #0d3138;
+        --bg-diff-red: #3c1f1e;
+        --bg-visual-yellow: #473c29;
+        --bg-visual-green: #333e34;
+        --bg-visual-blue: #2e3b3b;
+        --bg-visual-red: #442e2d;
+        --bg-accent-yellow: #d8a656;
+        --bg-accent-green: #a8b665;
+        --bg-accent-red: #ea6962;
+        --accent-red: #ea6962;
+        --accent-orange: #e78a4f;
+        --accent-yellow: #d8a656;
+        --accent-green: #a8b665;
+        --accent-aqua: #89b481;
+        --accent-blue: #7caea3;
+        --accent-purple: #d3859b;
+        --fg-0: #d4be98;
+        --fg-1: #ddc7a0;
+        --grey-0: #7c6f64;
+        --grey-1: #918274;
+        --grey-2: #a79a83;
+    }
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-weight: 600;
+    letter-spacing: -2%;
+}
+
+.h1 {
+    font-size: var(--headline-1);
+}
+
+.h2 {
+    font-size: var(--headline-2);
+}
+
+.h3 {
+    font-size: var(--headline-3);
+}
+
+.h4 {
+    font-size: var(--headline-4);
+}
+
+.h5 {
+    font-size: var(--headline-5);
+}
+
+.h6 {
+    font-size: var(--headline-6);
+}
+
+.body {
+    font-weight: 400;
+}
+
+.body.xs {
+    font-size: var(--body-xs);
+}
+
+.body.sm {
+    font-size: var(--body-sm);
+}
+
+.body.md {
+    font-size: var(--body-md);
+}
+
+.body.lg {
+    font-size: var(--body-lg);
+}
+
+.label {
+    font-weight: 600;
+    letter-spacing: 2%;
+}
+
+.label.xs {
+    font-size: var(--label-xs);
+}
+
+.label.sm {
+    font-size: var(--label-sm);
+}
+
+.label.md {
+    font-size: var(--label-md);
+}
+
+.label.lg {
+    font-size: var(--label-lg);
+}
+
+.overline {
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.overline.xs {
+    font-size: var(--overline-xs);
+}
+
+.overline.sm {
+    font-size: var(--overline-sm);
+}
+
+.overline.md {
+    font-size: var(--overline-md);
+}
+
+.overline.lg {
+    font-size: var(--overline-lg);
+}
+
+.red {
+    color: var(--accent-red);
+}
+
+.orange {
+    color: var(--accent-orange);
+}
+
+.yellow {
+    color: var(--accent-yellow);
+}
+
+.green {
+    color: var(--accent-green);
+}
+
+.aqua {
+    color: var(--accent-aqua);
+}
+
+.blue {
+    color: var(--accent-blue);
+}
+
+.purple {
+    color: var(--accent-purple);
+}
+
+p,
+body {
+    margin: 0;
+}
+
+button {
+    all: unset;
+}
+
+p {
+    margin-bottom: 0.5rem;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--bg-3);
+    margin: 1.75rem 0;
+}
+
+.dy-1 {
+    transform: translateY(0.125em);
+}
+
+.text-center {
+    text-align: center;
+}
