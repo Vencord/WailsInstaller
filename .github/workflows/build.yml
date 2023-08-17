@@ -38,6 +38,9 @@ jobs:
             - name: Install Wails
               run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
 
+            - name: Install Go dependencies
+              run: go mod download
+
             - name: Build
               run: wails build
 
