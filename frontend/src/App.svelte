@@ -84,14 +84,24 @@
         align-items: center;
         justify-content: center;
         width: 2.5rem;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     }
 
     .buttons button:hover {
         background-color: #3c3836;
     }
-    
+
+    .buttons button:active {
+        background-color: #141617;
+    }
+
     .buttons button.close:hover {
         background-color: #ea6962;
+        color: #1e2021;
+    }
+
+    .buttons button.close:active {
+        background-color: #c14a4a;
         color: #1e2021;
     }
 
