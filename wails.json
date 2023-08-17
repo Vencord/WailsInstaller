@@ -1,6 +1,6 @@
 {
     "$schema": "https://wails.io/schemas/config.v2.json",
-    "name": "vencord-installer",
+    "name": "VencordInstaller",
     "outputfilename": "VencordInstaller",
     "frontend:install": "pnpm install",
     "frontend:build": "pnpm run build",
