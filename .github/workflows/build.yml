@@ -11,8 +11,6 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
-                artifact:
-                    ["build/bin/VencordInstaller", "build/bin/VencordInstaller.app", "build/bin/VencordInstaller.exe"]
 
         steps:
             - name: Checkout code
@@ -47,4 +45,4 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                   name: ${{ matrix.os }}
-                  path: ${{ matrix.artifact }}
+                  path: build/bin/VencordInstaller*
