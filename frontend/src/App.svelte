@@ -7,9 +7,15 @@
 <script lang="ts">
     import { MinusIcon, XIcon } from "svelte-feather-icons";
 
+    import { windowStore } from "./components/windows/index.js";
+
     import * as WailsRuntime from "../wailsjs/runtime/runtime.js";
 
     import VencordIcon from "./components/VencordIcon.svelte";
+    import Installer from "./components/installer/Installer.svelte";
+    import DialogWindow from "./components/windows/DialogWindow.svelte";
+
+    $: windows = Object.values($windowStore);
 </script>
 
 <div class="frame">
@@ -19,21 +25,27 @@
                 <div class="icon">
                     <VencordIcon />
                 </div>
-                <div class="title body sm">Vencord Installer Shell</div>
+                <div class="title body sm">Vencord Installer</div>
                 <div class="spacer"></div>
                 <div class="buttons">
                     <button title="Minimize" on:click={WailsRuntime.WindowMinimise}>
-                        <MinusIcon size="1.1x" />
+                        <MinusIcon size="1.5x" />
                     </button>
                     <button title="Close" class="close" on:click={WailsRuntime.Quit}>
-                        <XIcon size="1.1x" />
+                        <XIcon size="1.5x" />
                     </button>
                 </div>
             </div>
         {/if}
     {/await}
     <div class="content">
-        <iframe src="https://beta.install.vencord.dev"></iframe>
+        <Installer />
+
+        {#each windows as window (window.props.id)}
+            <DialogWindow {...window.props}>
+                <svelte:component this={window.content} {...window.contentProps} />
+            </DialogWindow>
+        {/each}
     </div>
 </div>
 
@@ -107,12 +119,6 @@
 
     .content {
         flex: 1;
-    }
-
-    .content iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
     }
 
     .titlebar {
