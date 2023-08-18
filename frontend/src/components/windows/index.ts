@@ -8,7 +8,7 @@ import type { SvelteComponent } from "svelte";
 import { writable } from "svelte/store";
 import type { Constructor, SetOptional } from "type-fest";
 
-import type Window from "./DialogWindow.svelte";
+import type Window from "./Window.svelte";
 
 type ComponentProps<T extends SvelteComponent> = T extends SvelteComponent<infer R> ? R : unknown;
 
