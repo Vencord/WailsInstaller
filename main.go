@@ -33,7 +33,7 @@ func main() {
 		Frameless:        runtime.GOOS == "windows",
 		BackgroundColour: &options.RGBA{R: 40, G: 40, B: 40, A: 1},
 		OnStartup: installer.Startup,
-		Bind: []interface{}{
+		Bind: []any{
 			installer,
 		},
 	})
