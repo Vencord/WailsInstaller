@@ -42,7 +42,7 @@ jobs:
               run: go mod download
 
             - name: Build
-              run: wails build
+              run: wails build -ldflags "-s -w -extldflags=-static" -nosyncgomod -tags "osusergo,netgo"
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v3

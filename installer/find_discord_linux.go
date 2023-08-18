@@ -1,3 +1,4 @@
+//go:build linux
 /*
  * SPDX-License-Identifier: GPL-3.0
  * Vencord Installer, a cross platform gui/cli app for installing Vencord
