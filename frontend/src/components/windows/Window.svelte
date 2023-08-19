@@ -5,14 +5,17 @@
 -->
 
 <script lang="ts">
+    import type { SvelteComponent } from "svelte";
     import { cubicInOut } from "svelte/easing";
     import type { TransitionConfig } from "svelte/transition";
-    import { XIcon } from "svelte-feather-icons";
+    import { CircleIcon, XIcon } from "svelte-feather-icons";
+    import type { Constructor } from "type-fest";
 
     import { closeWindow, getFocusZIndex } from ".";
 
     export let title: string;
     export let id: string;
+    export let icon: Constructor<SvelteComponent> | null = null;
 
     export let backgroundColor = "var(--bg-1)";
 
@@ -20,6 +23,9 @@
     export let height: number;
     export let minWidth: number | null = width;
     export let minHeight: number | null = height;
+
+    export let maximized = false;
+    export let closable = true;
 
     function close() {
         closeWindow(id);
@@ -73,19 +79,19 @@
         };
     }
 
-
-
     // Inline styles
     let style: string;
     $: {
         const styleProps: Record<string, string> = {
             "background-color": backgroundColor
         };
-        styleProps.width = `${width}px`;
-        styleProps.height = `${height}px`;
-        styleProps.left = `${x}px`;
-        styleProps.top = `${y}px`;
-        styleProps["z-index"] = `${z}`;
+        if (!maximized) {
+            styleProps.width = `${width}px`;
+            styleProps.height = `${height}px`;
+            styleProps.left = `${x}px`;
+            styleProps.top = `${y}px`;
+            styleProps["z-index"] = `${z}`;
+        }
         if (minHeight) styleProps["min-height"] = `${minHeight}px`;
         if (minWidth) styleProps["min-width"] = `${minWidth}px`;
         style = Object.entries(styleProps)
@@ -105,9 +111,14 @@
 <svelte:window on:mousemove={onDrag} on:mouseup={onDragEnd} />
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="frame" use:resize on:mousedown={onFocus} {style} in:transition out:transition>
+<div class="frame" class:maximized use:resize on:mousedown={onFocus} {style} in:transition out:transition>
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <div class="titlebar" role="application" on:mousedown={onDragStart}>
+        <div class="icon">
+            {#if icon}
+                <svelte:component this={icon} />
+            {/if}
+        </div>
         <div class="title body sm">{title}</div>
         <div class="spacer"></div>
         <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -127,30 +138,51 @@
         position: absolute;
         resize: both;
         overflow: hidden;
-        outline: 1px solid #3c3836;
+    }
 
+    .frame:not(.maximized) {
         border-radius: 0.5rem;
+        outline: 1px solid #3c3836;
         box-shadow:
             0px 2px 10.6px 0px rgba(0, 0, 0, 0.37),
             0px 16px 32px 0px rgba(0, 0, 0, 0.37);
     }
-
     .frame::-webkit-resizer {
         display: none;
+    }
+
+    .frame.maximized {
+        top: 2rem;
+        left: 0;
+        width: 100vw;
+        height: calc(100vh - 2rem);
+        resize: none;
     }
 
     .titlebar {
         display: flex;
         align-items: center;
-        background: #1e2021;
         color: #d4be98;
         cursor: default;
         height: 2rem;
         user-select: none;
     }
 
-    .title {
+    .frame:not(.maximized) .titlebar {
+        background: #1e2021;
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.25rem;
+        height: 1.25rem;
         margin: 0 1rem;
+    }
+    .frame.maximized .icon,
+    .frame.maximized .title {
+        opacity: 0;
     }
 
     .spacer {
@@ -161,6 +193,13 @@
         display: flex;
         transition: opacity 0.2s ease-in-out;
         height: 100%;
+    }
+
+    .frame.maximized .buttons {
+        opacity: 0;
+    }
+    .titlebar:hover .buttons {
+        opacity: 1;
     }
 
     .buttons button {
