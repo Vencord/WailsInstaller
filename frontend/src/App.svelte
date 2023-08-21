@@ -8,14 +8,18 @@
     import { MinusIcon, XIcon } from "svelte-feather-icons";
 
     import { windowStore } from "./components/windows/index.js";
+    import { launchers } from "./components/windows/launchers.js";
 
     import * as WailsRuntime from "../wailsjs/runtime/runtime.js";
 
     import VencordIcon from "./components/VencordIcon.svelte";
-    import Installer from "./components/installer/Installer.svelte";
-    import DialogWindow from "./components/windows/DialogWindow.svelte";
+    import Window from "./components/windows/Window.svelte";
+    import Launcher from "./components/windows/Launcher.svelte";
 
     $: windows = Object.values($windowStore);
+
+    const autolaunch = +(localStorage.getItem("autolaunch") || "0") || 0;
+    (launchers[autolaunch] ?? launchers[0]).onClick();
 </script>
 
 <div class="frame">
@@ -39,17 +43,24 @@
         {/if}
     {/await}
     <div class="content">
-        <Installer />
-
+        <div class="launchers">
+            {#each launchers as launcher}
+                <Launcher {launcher} />
+            {/each}
+        </div>
         {#each windows as window (window.props.id)}
-            <DialogWindow {...window.props}>
+            <Window {...window.props}>
                 <svelte:component this={window.content} {...window.contentProps} />
-            </DialogWindow>
+            </Window>
         {/each}
     </div>
 </div>
 
 <style>
+    .launchers {
+        padding: 1em;
+    }
+
     .frame {
         display: flex;
         flex-direction: column;
@@ -96,7 +107,9 @@
         align-items: center;
         justify-content: center;
         width: 2.5rem;
-        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        transition:
+            background-color 0.2s ease-in-out,
+            color 0.2s ease-in-out;
     }
 
     .buttons button:hover {
