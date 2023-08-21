@@ -28,6 +28,17 @@ func NewInstaller() *Installer {
 
 func (i *Installer) Startup(ctx context.Context) {
 	i.ctx = ctx
+
+	InitGithubDownloader()
+	<-GithubDoneChan
+}
+
+func (i *Installer) GetLatestVersion() string {
+	return LatestHash
+}
+
+func (i *Installer) GetInstalledVersion() string {
+	return InstalledHash
 }
 
 func (i *Installer) ListInstalls() []DiscordData {

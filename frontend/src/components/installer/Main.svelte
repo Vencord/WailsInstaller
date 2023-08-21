@@ -42,9 +42,6 @@
             });
     }
 
-    const currentVersion = "v1.2.6";
-    const latestVersion = "v1.2.7";
-
     let busy = false;
 </script>
 
@@ -60,11 +57,19 @@
         <div class="installer">
             <div class="version">
                 <p class="overline sm current">Current</p>
-                <Tag>{currentVersion}</Tag>
+                {#await Installer.GetInstalledVersion()}
+                    <Tag>Loading...</Tag>
+                {:then latest}
+                    <Tag>{latest}</Tag>
+                {/await}
             </div>
             <div class="version">
-                <p class="overline sm latest">latest</p>
-                <Tag>{latestVersion}</Tag>
+                <p class="overline sm latest">Latest</p>
+                {#await Installer.GetLatestVersion()}
+                    <Tag>Loading...</Tag>
+                {:then latest}
+                    <Tag>{latest}</Tag>
+                {/await}
             </div>
         </div>
         <hr />
