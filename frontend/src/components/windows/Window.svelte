@@ -166,6 +166,7 @@
         cursor: default;
         height: 2rem;
         user-select: none;
+        -webkit-user-select: none;
     }
 
     .frame:not(.maximized) .titlebar {
