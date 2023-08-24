@@ -48,7 +48,7 @@ jobs:
 
             - name: ZIP Mac build
               if: matrix.os == 'macos-latest'
-              run: pushd build/bin/ && zip -r build/bin/VencordInstaller.zip build/bin/Vencord\ Installer.app && popd
+              run: pushd build/bin/ && zip -r VencordInstaller.zip Vencord\ Installer.app && popd
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v3
