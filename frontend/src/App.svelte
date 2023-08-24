@@ -86,6 +86,7 @@
         cursor: default;
         height: 2rem;
         user-select: none;
+        -webkit-user-select: none; /* safari is a special little browser */
     }
 
     .titlebar.darwin {
