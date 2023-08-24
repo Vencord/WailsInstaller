@@ -152,10 +152,10 @@
     }
 
     .frame.maximized {
+        position: absolute;
         top: var(--titlebar-height);
-        left: 0;
-        width: 100vw;
-        height: calc(100vh - var(--titlebar-height));
+        width: 100%;
+        height: 100%;
         resize: none;
     }
 
@@ -171,6 +171,11 @@
 
     .frame:not(.maximized) .titlebar {
         background: #1e2021;
+    }
+
+    .frame.maximized .titlebar {
+        width: 100vw;
+        position: absolute;
     }
 
     .icon {
