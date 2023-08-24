@@ -46,6 +46,10 @@ jobs:
             - name: Build
               run: wails build -ldflags "-s -w -X 'installer.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'installer.InstallerTag=${{ github.ref_name }}'" -nosyncgomod
 
+            - name: ZIP Mac build
+              if: matrix.os == 'macos-latest'
+              run: zip -r build/bin/VencordInstaller.app.zip build/bin/VencordInstaller.app && rm -r build/bin/VencordInstaller.app
+
             - name: Upload artifacts
               uses: actions/upload-artifact@v3
               with:
