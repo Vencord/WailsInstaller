@@ -45,6 +45,10 @@ func main() {
 				FullSizeContent:            true,
 			},
 			Appearance: mac.NSAppearanceNameDarkAqua,
+			About: &mac.AboutInfo{
+				Title: "Vencord Installer",
+				Message: "A cross-platform installer for Vencord.",
+			},
 		},
 	})
 

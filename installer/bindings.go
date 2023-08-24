@@ -122,6 +122,10 @@ func (i *Installer) UninstallOpenAsar(path string) error {
 	return discordInstall.UninstallOpenAsar()
 }
 
+func (i *Installer) GetBaseDir() string {
+	return BaseDir
+}
+
 func InstallLatestBuilds() error {
 	return installLatestBuilds()
 }

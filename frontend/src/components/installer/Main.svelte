@@ -13,8 +13,6 @@
     import type { installer } from "../../../wailsjs/go/models";
     import ShiggyIcon from "../ShiggyIcon.svelte";
 
-    const userDataDir = "%APPDATA%\\Vencord";
-
     const branches = ["stable", "canary", "ptb", "development"];
     let installPromise: Promise<installer.DiscordData[]>;
 
@@ -48,7 +46,12 @@
 <section>
     <div>
         <p>
-            Files will be downloaded to <Tag>{userDataDir}</Tag>.
+            Files will be downloaded to
+            {#await Installer.GetBaseDir()}
+                <Tag>Loading...</Tag>.
+            {:then baseDir}
+                <Tag>{baseDir}</Tag>.
+            {/await}
         </p>
         <p>
             To customize this location, set the environment variable <Tag>VENCORD_USER_DATA_DIR</Tag> and restart the installer.
