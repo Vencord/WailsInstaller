@@ -152,10 +152,10 @@
     }
 
     .frame.maximized {
-        top: 2rem;
+        top: var(--titlebar-height);
         left: 0;
         width: 100vw;
-        height: calc(100vh - 2rem);
+        height: calc(100vh - var(--titlebar-height));
         resize: none;
     }
 

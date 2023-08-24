@@ -40,20 +40,27 @@
                     </button>
                 </div>
             </div>
+        {:else if env.platform === "darwin"}
+            <div class="titlebar darwin">
+                <div class="icon">
+                    <VencordIcon />
+                </div>
+                <div class="title body sm">Vencord Installer</div>
+            </div>
         {/if}
-    {/await}
-    <div class="content">
-        <div class="launchers">
-            {#each launchers as launcher}
-                <Launcher {launcher} />
+        <div class="content" class:darwin={env.platform === "darwin"}>
+            <div class="launchers">
+                {#each launchers as launcher}
+                    <Launcher {launcher} />
+                {/each}
+            </div>
+            {#each windows as window (window.props.id)}
+                <Window {...window.props}>
+                    <svelte:component this={window.content} {...window.contentProps} />
+                </Window>
             {/each}
         </div>
-        {#each windows as window (window.props.id)}
-            <Window {...window.props}>
-                <svelte:component this={window.content} {...window.contentProps} />
-            </Window>
-        {/each}
-    </div>
+    {/await}
 </div>
 
 <style>
@@ -82,6 +89,11 @@
         cursor: default;
         height: 2rem;
         user-select: none;
+    }
+
+    .titlebar.darwin {
+        height: 28px; /* thanks vscode! */
+        justify-content: center;
     }
 
     .icon {
@@ -132,6 +144,12 @@
 
     .content {
         flex: 1;
+
+        --titlebar-height: 2rem;
+    }
+
+    .content.darwin {
+        --titlebar-height: 28px;
     }
 
     .titlebar {
