@@ -42,9 +42,6 @@
             </div>
         {:else if env.platform === "darwin"}
             <div class="titlebar darwin">
-                <div class="icon">
-                    <VencordIcon />
-                </div>
                 <div class="title body sm">Vencord Installer</div>
             </div>
         {/if}
