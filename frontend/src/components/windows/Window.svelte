@@ -152,7 +152,6 @@
     }
 
     .frame.maximized {
-        position: absolute;
         top: var(--titlebar-height);
         width: 100%;
         height: 100%;
