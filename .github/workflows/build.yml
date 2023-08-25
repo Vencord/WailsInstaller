@@ -48,7 +48,7 @@ jobs:
 
       - name: ZIP Mac build
         if: matrix.os == 'macos-latest'
-        run: pushd build/bin/ && zip -r ShiggyClicker.zip Shiggy Clicker.app && popd
+        run: pushd build/bin/ && zip -r ShiggyClicker.zip Shiggy\ Clicker.app && popd
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
