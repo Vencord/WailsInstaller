@@ -253,7 +253,9 @@ func unpatchRenames(dir string, isSystemElectron bool) (errOut error) {
 	if err := os.Rename(_appAsar, appAsar); err != nil {
 		err = CheckIfErrIsCauseItsBusyRn(err)
 		fmt.Println(err)
-		errOut = err
+		if strings.Contains(err.Error(), "file exists") && !strings.Contains(errOut.Error(), "operation not permitted") {
+			errOut = err
+		}
 	} else {
 		renamesDone = append(renamesDone, []string{_appAsar, appAsar})
 	}

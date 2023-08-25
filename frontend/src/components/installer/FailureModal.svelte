@@ -5,7 +5,9 @@
 -->
 
 <script lang="ts">
+    import { Environment, BrowserOpenURL } from "../../../wailsjs/runtime/runtime.js";
     import Heading from "../text/Heading.svelte";
+    import Button from "../Button.svelte";
     export let message: string | null = null;
 </script>
 
@@ -13,7 +15,24 @@
     <Heading tag="h6" --color="var(--accent-red)">Oh no!</Heading>
     <p>Unable to do the thing u were trying to do :&lpar;&lpar;&lpar;&lpar;&lpar;</p>
     {#if message}
-        <p>{message}</p>
+        {#if message.includes("operation not permitted")}
+            {#await Environment()}
+                <p>{message}</p>
+            {:then env}
+                {#if env.platform === "darwin"}
+                    <p>Please grant the installer full disk access</p>
+                    <Button
+                        on:click={() =>
+                            BrowserOpenURL("x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles")}
+                        >Open Security Settings</Button
+                    >
+                {:else}
+                    <p>{message}</p>
+                {/if}
+            {/await}
+        {:else}
+            <p>{message}</p>
+        {/if}
     {/if}
 </section>
 
