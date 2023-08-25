@@ -22,9 +22,6 @@ func main() {
 	// Create an instance of the installer binding
 	installer := installer.NewInstaller()
 
-	// Create an instance of the AppleScript binding
-	appleScript := NewAppleScript()
-
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:         "Vencord Installer",
@@ -39,7 +36,6 @@ func main() {
 		OnStartup: installer.Startup,
 		Bind: []any{
 			installer,
-			appleScript,
 		},
 		Mac: &mac.Options{
 			TitleBar: &mac.TitleBar{

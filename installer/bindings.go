@@ -7,7 +7,10 @@ package installer
 import (
 	"context"
 	"fmt"
+	"os"
+	gruntime "runtime"
 
+	"github.com/vencord/wailsinstaller/applescript"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -124,6 +127,24 @@ func (i *Installer) UninstallOpenAsar(path string) error {
 
 func (i *Installer) GetBaseDir() string {
 	return BaseDir
+}
+
+func (i *Installer) ChownDarwin(path string) bool {
+	if gruntime.GOOS == "darwin" {
+		return false
+	}
+
+	uid := os.Getuid()
+
+	applescript.RunScript(
+		`do shell script "chown -R \"` +
+		fmt.Sprint(uid) +
+		`\" \"` +
+		path +
+		`\"  with prompt "Vencord Installer needs to fix Discord file ownership" with administrator privileges`,
+	)
+
+	return true
 }
 
 func InstallLatestBuilds() error {

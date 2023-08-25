@@ -1,6 +1,6 @@
 //go:build !darwin
 
-package main
+package applescript
 
 func runAppleScript(script string) {
 	panic("AppleScript on non-Darwin")
