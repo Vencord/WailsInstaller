@@ -8,7 +8,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"os/exec"
+	"os"
+	"syscall"
+	"runtime"
+	WailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 type DiscordData struct {
@@ -59,7 +63,7 @@ func (i *Installer) ListInstalls() []DiscordData {
 }
 
 func (i *Installer) ChooseCustomInstall() (string, error) {
-	directory, err := runtime.OpenDirectoryDialog(i.ctx, runtime.OpenDialogOptions{
+	directory, err := WailsRuntime.OpenDirectoryDialog(i.ctx, WailsRuntime.OpenDialogOptions{
 		Title: "Discord Install Directory",
 		CanCreateDirectories: false,
 		TreatPackagesAsDirectories: true, // for mac, since we need to select the app package
@@ -132,4 +136,48 @@ func InstallLatestBuilds() error {
 
 func HandleScuffedInstall() {
 	// TODO
+}
+
+func (i *Installer) PromptForChown(path string) bool {
+
+	if runtime.GOOS != "darwin" {
+		return false
+	}
+
+	fmt.Println("Showing osascript prompt", path, "...")
+
+	uid := os.Getuid()
+	
+	cmd := exec.Command("osascript", "-e", `do shell script "chown -R \"` + fmt.Sprint(uid) + `:wheel\" '` + path + `'" with prompt "Vencord Installer needs to fix Discord file ownership" with administrator privileges`)
+	err := cmd.Run()
+
+	if err != nil {
+		fmt.Println("Error while prompting for chown:", err)
+		return false
+	}
+
+	return true
+}
+
+func (i *Installer) CheckForOwnership(path string) bool {
+
+	// Check if file is owned by root
+
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		fmt.Println("Error while checking for root:", err)
+		return false
+	}
+
+	uid := fileInfo.Sys().(*syscall.Stat_t).Uid
+
+	gid := fileInfo.Sys().(*syscall.Stat_t).Gid
+
+	if gid != 0 {
+		return false
+	}
+
+	currentUid := os.Getuid()
+
+	return currentUid != int(uid)
 }

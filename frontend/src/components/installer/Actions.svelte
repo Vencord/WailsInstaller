@@ -12,7 +12,7 @@
 
     import * as Installer from "../../../wailsjs/go/installer/Installer";
 
-    type IPCCall = typeof Installer["Patch" | "Repair" | "Unpatch" | "InstallOpenAsar" | "UninstallOpenAsar"];
+    type IPCCall = (typeof Installer)["Patch" | "Repair" | "Unpatch" | "InstallOpenAsar" | "UninstallOpenAsar"];
 
     export let path: string;
     export let isOpenAsar: boolean = false;
@@ -52,7 +52,11 @@
                 openWindow(
                     FailureModal,
                     {
-                        message
+                        message,
+                        path,
+                        op,
+                        getOpPastTense,
+                        onAction
                     },
                     {
                         title: "MASSIVE FAILURE !!!",
