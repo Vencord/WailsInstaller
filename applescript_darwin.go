@@ -6,7 +6,7 @@ package main
 import (AppleScript "C")
 
 func runAppleScript(script string) {scriptc
-	cscript := AppleScript.CString(script)
+    cscript := AppleScript.CString(script)
     defer AppleScript.free(unsafe.Pointer(cscript))
     AppleScript.runScript(cscript)
 }
