@@ -8,10 +8,8 @@ import type { SvelteComponent } from "svelte";
 import type { Constructor } from "type-fest";
 
 import ShiggyIcon from "../ShiggyIcon.svelte";
-import VencordIcon from "../VencordIcon.svelte";
-import Installer from "../installer/Installer.svelte";
 import { openWindow } from ".";
-import ShiggyGame from '../shiggy/ShiggyGame.svelte'
+import ShiggyGame from "../shiggy/ShiggyGame.svelte";
 
 export type Launcher = {
     name: string;
@@ -20,24 +18,6 @@ export type Launcher = {
 };
 
 export const launchers: Launcher[] = [
-    {
-        name: "Vencord Installer",
-        icon: VencordIcon,
-        onClick: () => {
-            openWindow(
-                Installer,
-                {},
-                {
-                    title: "Vencord Installer",
-                    id: "installer",
-                    icon: VencordIcon,
-                    width: 1000,
-                    height: 720,
-                    maximized: true
-                }
-            );
-        }
-    },
     {
         name: "Shiggy Clicker",
         icon: ShiggyIcon,

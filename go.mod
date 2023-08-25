@@ -2,10 +2,7 @@ module github.com/vencord/wailsinstaller
 
 go 1.20
 
-require (
-	github.com/ProtonMail/go-appdir v1.1.0
-	github.com/wailsapp/wails/v2 v2.5.1
-)
+require github.com/wailsapp/wails/v2 v2.5.1
 
 require (
 	github.com/bep/debounce v1.2.1 // indirect

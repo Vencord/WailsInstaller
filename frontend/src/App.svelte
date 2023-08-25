@@ -12,7 +12,7 @@
 
     import * as WailsRuntime from "../wailsjs/runtime/runtime.js";
 
-    import VencordIcon from "./components/VencordIcon.svelte";
+    import ShiggyIcon from "./components/ShiggyIcon.svelte";
     import Window from "./components/windows/Window.svelte";
     import Launcher from "./components/windows/Launcher.svelte";
 
@@ -27,9 +27,9 @@
         {#if env.platform === "windows"}
             <div class="titlebar" role="application">
                 <div class="icon">
-                    <VencordIcon />
+                    <ShiggyIcon />
                 </div>
-                <div class="title body sm">Vencord Installer</div>
+                <div class="title body sm">Shiggy Clicker</div>
                 <div class="spacer"></div>
                 <div class="buttons">
                     <button title="Minimize" on:click={WailsRuntime.WindowMinimise}>
@@ -42,7 +42,7 @@
             </div>
         {:else if env.platform === "darwin"}
             <div class="titlebar darwin">
-                <div class="title body sm">Vencord Installer</div>
+                <div class="title body sm">Shiggy Clicker</div>
             </div>
         {/if}
         <div class="content" class:darwin={env.platform === "darwin"}>

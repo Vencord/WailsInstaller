@@ -1,4 +1,4 @@
-// Vencord WailsInstaller, a cross-platform installer for Vencord.
+// Vencord ShiggyClicker, a little shiggy game :D
 // Copyright (c) 2023 Vendicated, Lewis Crichton, and Vencord contributors
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -8,7 +8,6 @@ import (
 	"embed"
 	"runtime"
 
-	"github.com/vencord/wailsinstaller/installer"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -19,12 +18,10 @@ import (
 var assets embed.FS
 
 func main() {
-	// Create an instance of the installer binding
-	installer := installer.NewInstaller()
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:         "Vencord Installer",
+		Title:         "Shiggy Clicker",
 		Width:         1024,
 		Height:        768,
 		DisableResize: true,
@@ -33,10 +30,6 @@ func main() {
 		},
 		Frameless:        runtime.GOOS == "windows",
 		BackgroundColour: &options.RGBA{R: 40, G: 40, B: 40, A: 1},
-		OnStartup: installer.Startup,
-		Bind: []any{
-			installer,
-		},
 		Mac: &mac.Options{
 			TitleBar: &mac.TitleBar{
 				TitlebarAppearsTransparent: true,
@@ -46,8 +39,8 @@ func main() {
 			},
 			Appearance: mac.NSAppearanceNameDarkAqua,
 			About: &mac.AboutInfo{
-				Title: "Vencord Installer",
-				Message: "A cross-platform installer for Vencord.",
+				Title: "Shiggy Clicker",
+				Message: "A cross-platform shiggy game.",
 			},
 		},
 	})
