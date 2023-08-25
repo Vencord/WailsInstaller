@@ -2,7 +2,7 @@ name: Build and release
 
 on:
     push:
-        branches: [main, cachetest]
+        branches: [main]
     pull_request:
         branches: [main]
     workflow_dispatch:
