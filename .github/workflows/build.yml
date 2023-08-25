@@ -2,7 +2,7 @@ name: Build and release
 
 on:
   push:
-    branches: [main]
+    branches: [main, shiggyclicker]
   pull_request:
     branches: [main]
   workflow_dispatch:
