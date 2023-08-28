@@ -51,7 +51,7 @@
     <p>Unable to do the thing u were trying to do :&lpar;&lpar;&lpar;&lpar;&lpar;</p>
     {#if message}
         {#if message.includes("file exists") || message.includes("permission denied")}
-            {#await Installer.CheckForOwnership(path)}
+            {#await Installer.CheckForOwnershipDarwin(path)}
                 <p>{message}</p>
             {:then isOwned}
                 {#if !isOwned}
