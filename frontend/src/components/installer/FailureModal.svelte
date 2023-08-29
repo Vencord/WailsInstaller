@@ -8,7 +8,7 @@
     import * as Installer from "../../../wailsjs/go/installer/Installer.js";
     import Heading from "../text/Heading.svelte";
     import Button from "../Button.svelte";
-    import { closeWindow } from "../windows/index.js";
+    import { closeWindow, resizeWindow } from "../windows/index.js";
     import { BrowserOpenURL } from "../../../wailsjs/runtime/runtime.js";
 
     import * as IPC from "./ipc";
@@ -26,6 +26,19 @@
 
         setTimeout(() => IPC.doAction(op, path, onAction));
     }
+
+    let isOwned = true;
+
+    // svelte hacks...
+    async function CheckOwnership() {
+        isOwned = await Installer.CheckForOwnershipDarwin(path);
+    }
+
+    $: if (!isOwned) {
+        resizeWindow(_windowId, 450, 510);
+    } else {
+        resizeWindow(_windowId, 450, 200);
+    }
 </script>
 
 <section role="dialog">
@@ -33,9 +46,9 @@
     <p>Something went wrong!</p>
     {#if message}
         {#if message.includes("file exists") || message.includes("permission denied")}
-            {#await Installer.CheckForOwnershipDarwin(path)}
+            {#await CheckOwnership()}
                 <p>{message}</p>
-            {:then isOwned}
+            {:then}
                 {#if !isOwned}
                     <p>Hmm... seems like you've encountered a Mac-specific problem! Usually, this is one of two things:</p>
                     <p>

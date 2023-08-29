@@ -48,6 +48,14 @@ export const closeWindow = (id: string) => {
     });
 };
 
+export const resizeWindow = (id: string, w: number, h: number) => {
+    windowStore.update(windows => {
+        windows[id].props.width = w;
+        windows[id].props.height = h;
+        return windows;
+    });
+}
+
 let zIndex = 0;
 export const getFocusZIndex = () => {
     zIndex++;
