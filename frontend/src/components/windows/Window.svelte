@@ -185,6 +185,16 @@
         height: 1.25rem;
         margin: 0 1rem;
     }
+
+    .title {
+        margin-left: 1rem;
+    }
+
+    /* don't add margin if icon exists, as the icon will do it */
+    .icon + .title {
+        margin-left: 0;
+    }
+
     .frame.maximized .icon,
     .frame.maximized .title {
         opacity: 0;
