@@ -10,6 +10,10 @@ import (
 	"fmt"
 	path "path/filepath"
 	"strings"
+
+	"os"
+
+	"syscall"
 )
 
 var macosNames = map[string]string{
