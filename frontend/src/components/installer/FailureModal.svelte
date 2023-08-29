@@ -6,18 +6,16 @@
 
 <script lang="ts">
     import * as Installer from "../../../wailsjs/go/installer/Installer.js";
-    import SuccessModal from "./SuccessModal.svelte";
     import Heading from "../text/Heading.svelte";
     import Button from "../Button.svelte";
-    import { closeWindow, openWindow } from "../windows/index.js";
+    import { closeWindow } from "../windows/index.js";
     import { BrowserOpenURL } from "../../../wailsjs/runtime/runtime.js";
 
-    type IPCCall = (typeof Installer)["Patch" | "Repair" | "Unpatch" | "InstallOpenAsar" | "UninstallOpenAsar"];
+    import * as IPC from "./ipc";
 
     export let message: string | null = null;
     export let path: string = "";
-    export let op: IPCCall;
-    export let getOpPastTense: (IPCCall) => string;
+    export let op: IPC.IPCCall;
     export let onAction: () => void;
     export let _windowId: string;
 
@@ -26,21 +24,7 @@
 
         closeWindow(_windowId);
 
-        setTimeout(async () => {
-            await op(path);
-            openWindow(
-                SuccessModal,
-                {
-                    verb: getOpPastTense(op)
-                },
-                {
-                    title: "Woohoo!",
-                    width: 400,
-                    height: 510
-                }
-            );
-            onAction();
-        });
+        setTimeout(() => IPC.doAction(op, path, onAction));
     }
 </script>
 
