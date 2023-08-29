@@ -13,6 +13,7 @@ import (
 	"os/exec"
 	path "path/filepath"
 	"strings"
+	"syscall"
 )
 
 var windowsNames = map[string]string{
@@ -88,7 +89,9 @@ func PreparePatch(di *DiscordInstall) {
 	name := windowsNames[di.branch]
 	fmt.Println("Killing " + name + "...")
 
-	_ = exec.Command("powershell", "Stop-Process -Name "+name).Run()
+	kill_cmd := exec.Command("powershell", "Stop-Process -Name "+name)
+	kill_cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+	kill_cmd.Run()
 }
 
 func FixOwnership(_ string) error {
