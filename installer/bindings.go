@@ -7,7 +7,6 @@ package installer
 import (
 	"context"
 	"fmt"
-	"syscall"
 
 	"os"
 	"os/exec"
@@ -150,7 +149,6 @@ func (i *Installer) PromptForChown(path string) bool {
 	uid := os.Getuid()
 
 	cmd := exec.Command("osascript", "-e", `do shell script "chown -R \"`+fmt.Sprint(uid)+`:wheel\" '`+path+`'" with prompt "Vencord Installer needs to fix Discord file ownership" with administrator privileges`)
-	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	err := cmd.Run()
 
 	if err != nil {
