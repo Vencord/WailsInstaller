@@ -114,11 +114,11 @@
 <div class="frame" class:maximized use:resize on:mousedown={onFocus} {style} in:transition out:transition>
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <div class="titlebar" role="application" on:mousedown={onDragStart}>
-        <div class="icon">
-            {#if icon}
+        {#if icon}
+            <div class="icon">
                 <svelte:component this={icon} />
-            {/if}
-        </div>
+            </div>
+        {/if}
         <div class="title body sm">{title}</div>
         <div class="spacer"></div>
         <!-- svelte-ignore a11y-no-static-element-interactions -->
