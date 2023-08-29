@@ -54,24 +54,18 @@
             {:then isOwned}
                 {#if !isOwned}
                     <p>Hmm... seems like you've encountered a Mac-specific problem! Usually, this is one of two things:</p>
-                    <ul>
-                        <li>
-                            <p>
-                                Your Discord installation's permissions appear to be broken. Luckily, we offer a simple
-                                tool to fix this.
-                            </p>
-                            <Button on:click={runAndShowSuccess}>Repair Permissions</Button>
-                        </li>
-                        <li>
-                            <p>
-                                Sometimes the installer needs Full Disk Access, though usually the above should suffice.
-                            </p>
-                            <Button on:click={() =>
-                                BrowserOpenURL("x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles")}>
-                                Open Security Settings
-                            </Button>
-                        </li>
-                    </ul>
+                    <p>
+                        Your Discord installation's permissions appear to be broken. Luckily, we offer a simple tool to
+                        fix this.
+                    </p>
+                    <Button on:click={runAndShowSuccess}>Repair Permissions</Button>
+                    <p>
+                        Sometimes the installer needs Full Disk Access, though usually the above should suffice.
+                    </p>
+                    <Button on:click={() =>
+                        BrowserOpenURL("x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles")}>
+                        Open Security Settings
+                    </Button>
                 {:else}
                     <p>{message}</p>
                 {/if}
