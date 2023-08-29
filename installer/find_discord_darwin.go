@@ -10,6 +10,10 @@ import (
 	"fmt"
 	path "path/filepath"
 	"strings"
+
+	"os"
+
+	"syscall"
 )
 
 var macosNames = map[string]string{
@@ -64,4 +68,26 @@ func FixOwnership(_ string) error {
 
 func CheckScuffedInstall() bool {
 	return false
+}
+func CheckForOwnership(path string) bool {
+
+	// Check if file is owned by root
+
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		fmt.Println("Error while checking for root:", err)
+		return false
+	}
+
+	uid := fileInfo.Sys().(*syscall.Stat_t).Uid
+
+	gid := fileInfo.Sys().(*syscall.Stat_t).Gid
+
+	if gid != 0 {
+		return false
+	}
+
+	currentUid := os.Getuid()
+
+	return currentUid != int(uid)
 }

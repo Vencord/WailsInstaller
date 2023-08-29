@@ -108,3 +108,7 @@ func CheckScuffedInstall() bool {
 	}
 	return false
 }
+func CheckForOwnership(path string) bool {
+
+	return true
+}

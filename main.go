@@ -33,7 +33,7 @@ func main() {
 		},
 		Frameless:        runtime.GOOS == "windows",
 		BackgroundColour: &options.RGBA{R: 40, G: 40, B: 40, A: 1},
-		OnStartup: installer.Startup,
+		OnStartup:        installer.Startup,
 		Bind: []any{
 			installer,
 		},
@@ -46,7 +46,7 @@ func main() {
 			},
 			Appearance: mac.NSAppearanceNameDarkAqua,
 			About: &mac.AboutInfo{
-				Title: "Vencord Installer",
+				Title:   "Vencord Installer",
 				Message: "A cross-platform installer for Vencord.",
 			},
 		},

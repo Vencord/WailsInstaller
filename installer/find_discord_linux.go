@@ -172,3 +172,7 @@ func FixOwnership(p string) error {
 func CheckScuffedInstall() bool {
 	return false
 }
+func CheckForOwnership(path string) bool {
+
+	return true
+}
