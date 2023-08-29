@@ -8,6 +8,21 @@ on:
     workflow_dispatch:
 
 jobs:
+    format:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Setup Go
+              uses: actions/setup-go@v3
+              with:
+                  go-version: "1.20"
+
+            - name: Check formatting
+              run: if [ "$(gofmt -s -l . | wc -l)" -gt 0 ]; then exit 1; fi
+
     build:
         runs-on: ${{ matrix.os }}
         strategy:
@@ -26,16 +41,19 @@ jobs:
               uses: actions/setup-go@v3
               with:
                   go-version: "1.20"
-
-            - name: Setup Node
-              uses: actions/setup-node@v2
-              with:
-                  node-version: 18
+                  cache: true
 
             - name: Setup pnpm
               uses: pnpm/action-setup@v2
               with:
                   package_json_file: frontend/package.json
+
+            - name: Setup Node
+              uses: actions/setup-node@v2
+              with:
+                  node-version: 18
+                  cache: "pnpm"
+                  cache-dependency-path: frontend/pnpm-lock.yaml
 
             - name: Install Wails
               run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
