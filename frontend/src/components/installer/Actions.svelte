@@ -40,7 +40,7 @@
                         verb: getOpPastTense(op)
                     },
                     {
-                        title: "Success",
+                        title: "Woohoo!",
                         width: 400,
                         height: 510
                     }
@@ -59,7 +59,7 @@
                         onAction
                     },
                     {
-                        title: "MASSIVE FAILURE !!!",
+                        title: "Uh oh!",
                         width: 450,
                         height: 200
                     }

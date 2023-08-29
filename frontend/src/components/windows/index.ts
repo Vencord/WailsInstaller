@@ -22,21 +22,23 @@ export const windowStore = writable<Record<string, WindowInstance>>({});
 
 export const openWindow = <T extends SvelteComponent>(
     component: Constructor<T>,
-    props: ComponentProps<T>,
+    props: Omit<ComponentProps<T>, "_windowId">,
     windowOptions: SetOptional<ComponentProps<Window>, "id">
 ) => {
+    const id = Math.random().toString(36).substring(7);
     const newWindow: WindowInstance<T> = {
         props: {
-            id: Math.random().toString(36).substring(7),
+            id,
             ...windowOptions
         },
         content: component,
-        contentProps: props
+        contentProps: { ...props, _windowId: id } as ComponentProps<T>
     };
     windowStore.update(windows => {
         windows[newWindow.props.id] = newWindow;
         return windows;
     });
+    return newWindow.props.id;
 };
 
 export const closeWindow = (id: string) => {
