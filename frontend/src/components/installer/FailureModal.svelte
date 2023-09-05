@@ -35,7 +35,7 @@
     }
 
     $: if (!isOwned) {
-        resizeWindow(_windowId, 450, 510);
+        resizeWindow(_windowId, 450, 410);
     } else {
         resizeWindow(_windowId, 450, 200);
     }
