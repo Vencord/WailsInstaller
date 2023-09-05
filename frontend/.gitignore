@@ -3,3 +3,4 @@ node_modules/
 
 # Auto generated Wails bindings
 wailsjs/
+package.json.md5

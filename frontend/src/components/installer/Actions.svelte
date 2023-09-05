@@ -10,9 +10,9 @@
     import FailureModal from "./FailureModal.svelte";
     import SuccessModal from "./SuccessModal.svelte";
 
-    import * as Installer from "../../../wailsjs/go/installer/Installer";
+    import * as IPC from "./ipc";
 
-    type IPCCall = (typeof Installer)["Patch" | "Repair" | "Unpatch" | "InstallOpenAsar" | "UninstallOpenAsar"];
+    import * as Installer from "../../../wailsjs/go/installer/Installer";
 
     export let path: string;
     export let isOpenAsar: boolean = false;
@@ -21,54 +21,10 @@
 
     export let busy = false;
 
-    function getOpPastTense(op: IPCCall) {
-        if (op === Installer.Patch) return "installed";
-        if (op === Installer.Repair) return "repaired";
-        if (op === Installer.Unpatch) return "uninstalled";
-        if (op === Installer.InstallOpenAsar) return "installed OpenAsar";
-        if (op === Installer.UninstallOpenAsar) return "uninstalled OpenAsar";
-        return "did something?";
-    }
-
-    async function doAction(op: IPCCall) {
+    async function doAction(op: IPC.IPCCall) {
         busy = true;
-        await op(path)
-            .then(() => {
-                openWindow(
-                    SuccessModal,
-                    {
-                        verb: getOpPastTense(op)
-                    },
-                    {
-                        title: "Success",
-                        width: 400,
-                        height: 510
-                    }
-                );
-            })
-            .catch(error => {
-                const message = typeof error === "string" ? error : null;
-                if (!message) console.error(error);
-                openWindow(
-                    FailureModal,
-                    {
-                        message,
-                        path,
-                        op,
-                        getOpPastTense,
-                        onAction
-                    },
-                    {
-                        title: "MASSIVE FAILURE !!!",
-                        width: 450,
-                        height: 200
-                    }
-                );
-            })
-            .finally(() => {
-                busy = false;
-                onAction?.();
-            });
+        await IPC.doAction(op, path, onAction);
+        busy = false;
     }
 </script>
 

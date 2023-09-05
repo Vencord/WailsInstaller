@@ -12,7 +12,7 @@
 </script>
 
 <section role="dialog">
-    <Heading tag="h6" --color="var(--accent-green)">Successfully {verb}!!</Heading>
+    <Heading tag="h6" --color="var(--accent-green)">Successfully {verb}!</Heading>
     <p>Enjoy this shiggy:</p>
     <img src="https://media.discordapp.net/stickers/1039992459209490513.png?size=240" alt="shiggy" />
 </section>
